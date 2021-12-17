@@ -1,3 +1,4 @@
+import 'package:bit_flutter/screen/flutterExample.dart';
 import 'package:bit_flutter/screen/myHomeScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      darkTheme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Color(0xff000000),
+        dividerColor: Colors.grey,
+        brightness: Brightness.dark,
+        primaryColor: Colors.black54,
+        accentColor: Color(0xffed1c23),
+      ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomeScreen(),
+      home: FlutterExample(),
     );
   }
 }
