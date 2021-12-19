@@ -8,6 +8,7 @@ class FlutterWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    TextEditingController textEditingController = TextEditingController();
     return Scaffold(
         appBar: AppBar(
           title: Text('Widgests'),
@@ -36,7 +37,8 @@ class FlutterWidgets extends StatelessWidget {
               onPressed: () {
                 final snackBar = SnackBar(
                     backgroundColor: Colors.green.shade200,
-                    content: Text('Yay! A SnackBar!'));
+                    content:
+                        Text('User Name us ${textEditingController.text}'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: Text('Click Me ')),
@@ -91,7 +93,36 @@ class FlutterWidgets extends StatelessWidget {
               height: 20,
               color: Colors.green,
             ),
-          )
+          ),
+          Stack(
+            alignment: const Alignment(0.8, 1),
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage('image/download.jpeg'),
+                radius: 100,
+              ),
+              Icon(
+                Icons.circle,
+                color: Colors.green,
+                size: 40,
+              )
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Form(
+                child: Column(
+              children: [
+                TextFormField(
+                  controller: textEditingController,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      labelText: 'Enter Name',
+                      hintText: 'Enter Your Name'),
+                )
+              ],
+            )),
+          ),
         ]));
   }
 }

@@ -1,3 +1,5 @@
+import 'package:bit_flutter/notes/notesHome.dart';
+import 'package:bit_flutter/screen/myBottomNavigation.dart';
 import 'package:bit_flutter/screen/myHomeScreen.dart';
 import 'package:bit_flutter/screen/widgestFlutter.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,21 @@ class FlutterExample extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => FlutterWidgets()));
             },
-            child: Text('Widgets Example'))
+            child: Text('Widgets Example')),
+        InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyBottomNavigation()));
+            },
+            child: Text('MyBottomNavigation')),
+        InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NotesHome()));
+            },
+            child: Text('NotesHome'))
       ]),
     );
   }
