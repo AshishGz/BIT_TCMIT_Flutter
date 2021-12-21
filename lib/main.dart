@@ -1,8 +1,10 @@
+import 'package:bit_flutter/notes/hiveManger.dart';
 import 'package:bit_flutter/screen/flutterExample.dart';
 import 'package:bit_flutter/screen/myHomeScreen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+main() async {
+  await HiveManger.initHive();
   runApp(const MyApp());
 }
 

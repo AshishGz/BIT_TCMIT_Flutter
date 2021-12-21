@@ -1,13 +1,18 @@
+import 'package:bit_flutter/notes/note.dart';
 import 'package:flutter/material.dart';
 
 class MyNote extends StatelessWidget {
+  Note note;
+
+  MyNote(this.note);
+
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
-            color: Colors.amber.shade50,
+            color: Color(note.selectedColor),
             borderRadius: BorderRadius.circular(8)),
         child: Row(
           children: [
@@ -16,7 +21,7 @@ class MyNote extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'My notes',
+                    note.notes,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
                   ),
                   Row(

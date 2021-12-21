@@ -1,4 +1,5 @@
 import 'package:bit_flutter/notes/color.dart';
+import 'package:bit_flutter/notes/hiveManger.dart';
 import 'package:flutter/material.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 import 'package:nepali_utils/nepali_utils.dart';
@@ -119,7 +120,14 @@ class _ManageNotesState extends State<ManageNotes> {
                 Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                        onPressed: () {}, child: Text('ADD NOTES')))
+                        onPressed: () {
+                          HiveManger.onAddNotes(
+                              notes: textEditingController.text,
+                              selectedColor: selectedColor,
+                              notification: wantReminder,
+                              date: _selectedDateTime!.millisecondsSinceEpoch);
+                        },
+                        child: Text('ADD NOTES')))
               ],
             )),
           ),
