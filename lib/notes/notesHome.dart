@@ -1,3 +1,5 @@
+import 'package:bit_flutter/notes/color.dart';
+import 'package:bit_flutter/notes/global.dart';
 import 'package:bit_flutter/notes/hiveManger.dart';
 import 'package:bit_flutter/notes/manageNotes.dart';
 import 'package:bit_flutter/notes/myNoteCard.dart';
@@ -42,8 +44,12 @@ class _NotesHomeState extends State<NotesHome> {
               showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
-                    return ManageNotes();
-                  });
+                    return ManageNotes(
+                      note: new Note('', true, LIST_OF_COLORS[0],
+                          DateTime.now().millisecondsSinceEpoch),
+                      notes_manage_mod: NOTES_MANAGE_MOD.ADD,
+                    );
+                  }).then((value) => getNotes());
             },
           ),
         ),

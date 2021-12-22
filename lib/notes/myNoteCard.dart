@@ -1,10 +1,40 @@
+import 'package:bit_flutter/notes/global.dart';
+import 'package:bit_flutter/notes/manageNotes.dart';
 import 'package:bit_flutter/notes/note.dart';
 import 'package:flutter/material.dart';
+import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 class MyNote extends StatelessWidget {
   Note note;
 
   MyNote(this.note);
+
+  getIconByTime(int noteDate, BuildContext context) {
+    int todayDate = DateTime.now().millisecondsSinceEpoch;
+    if (todayDate > noteDate) {
+      return Icon(
+        Icons.check_circle_outline,
+        color: Colors.green,
+      );
+    } else {
+      return InkWell(
+        onTap: () => {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return ManageNotes(
+                  note: note,
+                  notes_manage_mod: NOTES_MANAGE_MOD.EDIT,
+                );
+              })
+        },
+        child: Icon(
+          Icons.edit,
+          color: Colors.green,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +61,21 @@ class MyNote extends StatelessWidget {
                         color: Colors.green,
                       ),
                       Text(
-                        '19 Dec, 2021 9:15 am',
+                        DateTime.fromMillisecondsSinceEpoch(
+                                note.notificationDate)
+                            .toNepaliDateTime()
+                            .toString(),
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
-                            color: Colors.grey),
+                            color: Colors.black),
                       ),
                     ],
                   )
                 ],
               ),
             ),
-            Icon(
-              Icons.check_circle_outline,
-              color: Colors.green,
-            )
+            getIconByTime(note.notificationDate, context)
           ],
         ));
   }

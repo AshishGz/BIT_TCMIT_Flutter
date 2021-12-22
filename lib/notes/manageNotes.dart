@@ -1,21 +1,42 @@
 import 'package:bit_flutter/notes/color.dart';
+import 'package:bit_flutter/notes/global.dart';
 import 'package:bit_flutter/notes/hiveManger.dart';
 import 'package:flutter/material.dart';
 import 'package:nepali_date_picker/nepali_date_picker.dart';
 import 'package:nepali_utils/nepali_utils.dart';
 
+import 'note.dart';
+
 class ManageNotes extends StatefulWidget {
+  late Note note;
+  NOTES_MANAGE_MOD notes_manage_mod=NOTES_MANAGE_MOD.ADD;
+
+  ManageNotes({required this.note,required this.notes_manage_mod});
+
   @override
   State<ManageNotes> createState() => _ManageNotesState();
 }
 
 class _ManageNotesState extends State<ManageNotes> {
+  TextEditingController textEditingController = TextEditingController();
   int selectedColor = LIST_OF_COLORS[0];
   bool wantReminder = true;
   NepaliDateTime? _selectedDateTime = NepaliDateTime.now();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    textEditingController.text = widget.note.notes;
+    selectedColor = widget.note.selectedColor;
+    _selectedDateTime =
+        DateTime.fromMillisecondsSinceEpoch(widget.note.notificationDate)
+            .toNepaliDateTime();
+    wantReminder = widget.note.wantReminder;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
     return Container(
       color: Color(selectedColor),
       height: MediaQuery.of(context).size.height / 2,
@@ -120,12 +141,18 @@ class _ManageNotesState extends State<ManageNotes> {
                 Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                        onPressed: () {
-                          HiveManger.onAddNotes(
-                              notes: textEditingController.text,
-                              selectedColor: selectedColor,
-                              notification: wantReminder,
-                              date: _selectedDateTime!.millisecondsSinceEpoch);
+                        onPressed: () async {
+                          if(widget.notes_manage_mod==NOTES_MANAGE_MOD.ADD) {
+                            await HiveManger.onAddNotes(
+                                notes: textEditingController.text,
+                                selectedColor: selectedColor,
+                                notification: wantReminder,
+                                date: _selectedDateTime!
+                                    .millisecondsSinceEpoch);
+                          }else{
+                            print('update');
+                          }
+                          Navigator.of(context).pop();
                         },
                         child: Text('ADD NOTES')))
               ],
