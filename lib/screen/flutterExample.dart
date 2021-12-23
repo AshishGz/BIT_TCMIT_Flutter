@@ -1,4 +1,5 @@
 import 'package:bit_flutter/notes/notesHome.dart';
+import 'package:bit_flutter/quiz/quizHome.dart';
 import 'package:bit_flutter/screen/myBottomNavigation.dart';
 import 'package:bit_flutter/screen/myHomeScreen.dart';
 import 'package:bit_flutter/screen/widgestFlutter.dart';
@@ -37,7 +38,13 @@ class FlutterExample extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => NotesHome()));
             },
-            child: Text('NotesHome'))
+            child: Text('NotesHome')),
+        InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => QuizHome()));
+            },
+            child: Text('Quiz Home')),
       ]),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bit_flutter/notes/note.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,6 +27,21 @@ class HiveManger {
     } finally {
       Hive.close();
       print('Succesfully added');
+      return true;
+    }
+  }
+
+  static onUpdateNotes(Note note) async {
+    try {
+      Box noteBox = await Hive.openBox(NOTES);
+      final modelExists = noteBox.containsKey(note.key);
+      if (modelExists) {
+        note.save();
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      Hive.close();
       return true;
     }
   }

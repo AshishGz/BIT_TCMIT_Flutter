@@ -38,6 +38,7 @@ dependencies:
   nepali_date_picker: ^5.2.0
   hive:
   hive_flutter:
+  lottie: ^1.2.1
 
 
 

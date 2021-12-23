@@ -9,9 +9,9 @@ import 'note.dart';
 
 class ManageNotes extends StatefulWidget {
   late Note note;
-  NOTES_MANAGE_MOD notes_manage_mod=NOTES_MANAGE_MOD.ADD;
+  NOTES_MANAGE_MOD notes_manage_mod = NOTES_MANAGE_MOD.ADD;
 
-  ManageNotes({required this.note,required this.notes_manage_mod});
+  ManageNotes({required this.note, required this.notes_manage_mod});
 
   @override
   State<ManageNotes> createState() => _ManageNotesState();
@@ -142,15 +142,21 @@ class _ManageNotesState extends State<ManageNotes> {
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                         onPressed: () async {
-                          if(widget.notes_manage_mod==NOTES_MANAGE_MOD.ADD) {
+                          if (widget.notes_manage_mod == NOTES_MANAGE_MOD.ADD) {
                             await HiveManger.onAddNotes(
                                 notes: textEditingController.text,
                                 selectedColor: selectedColor,
                                 notification: wantReminder,
-                                date: _selectedDateTime!
-                                    .millisecondsSinceEpoch);
-                          }else{
-                            print('update');
+                                date:
+                                    _selectedDateTime!.millisecondsSinceEpoch);
+                          } else {
+                            widget.note.wantReminder = wantReminder;
+                            widget.note.notificationDate =
+                                _selectedDateTime!.millisecondsSinceEpoch;
+                            widget.note.notes = textEditingController.text;
+                            widget.note.selectedColor = selectedColor;
+
+                            await HiveManger.onUpdateNotes(widget.note);
                           }
                           Navigator.of(context).pop();
                         },

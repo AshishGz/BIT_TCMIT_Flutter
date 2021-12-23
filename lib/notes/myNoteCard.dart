@@ -6,8 +6,9 @@ import 'package:nepali_date_picker/nepali_date_picker.dart';
 
 class MyNote extends StatelessWidget {
   Note note;
+  Function onGetNote;
 
-  MyNote(this.note);
+  MyNote(this.note, this.onGetNote);
 
   getIconByTime(int noteDate, BuildContext context) {
     int todayDate = DateTime.now().millisecondsSinceEpoch;
@@ -26,7 +27,7 @@ class MyNote extends StatelessWidget {
                   note: note,
                   notes_manage_mod: NOTES_MANAGE_MOD.EDIT,
                 );
-              })
+              }).then((value) => onGetNote())
         },
         child: Icon(
           Icons.edit,

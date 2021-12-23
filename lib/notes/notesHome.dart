@@ -53,6 +53,6 @@ class _NotesHomeState extends State<NotesHome> {
             },
           ),
         ),
-        body: ListView(children: [...notes.map((e) => MyNote(e))]));
+        body: ListView(children: [...notes.map((e) => MyNote(e, getNotes))]));
   }
 }
